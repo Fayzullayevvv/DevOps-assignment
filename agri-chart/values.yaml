@@ -1,0 +1,17 @@
+replicaCount: 1
+
+image:
+  repository: fayzullayev7505/agri-app
+  pullPolicy: IfNotPresent
+  tag: "v1"
+
+service:
+  type: LoadBalancer
+  port: 80
+  targetPort: 5000
+  metricsPort: 8000
+
+# Topshiriq 8: Prometheus scrape config
+podAnnotations:
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "8000"
