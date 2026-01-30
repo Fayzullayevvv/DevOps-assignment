@@ -1,22 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "agri-chart.fullname" . }}
+  name: agri-app
+  namespace: default
+  labels:
+    app: agri-app
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ include "agri-chart.name" . }}
+      app: agri-app
   template:
     metadata:
       labels:
-        app: {{ include "agri-chart.name" . }}
-      annotations:
-        {{- toYaml .Values.podAnnotations | nindent 8 }}
+        app: agri-app
     spec:
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        - name: agri-app
+          image: fayzullayev7505/agri-app:latest
           ports:
             - containerPort: 5000
-            - containerPort: 8000
+          imagePullPolicy: Always
